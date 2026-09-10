@@ -1,12 +1,13 @@
 import React, { useState } from "react"
-import type { Habitacion } from "../types/types"
+import type { Habitacion, Reserva } from "../types/types"
 
 interface FormularioReservaProps {
     habitacion: Habitacion
     onCerrar: () => void
+    onReservaConfirmada: (reserva: Reserva) => void
 }
 
-function FormularioReserva({ habitacion, onCerrar }: FormularioReservaProps) {
+function FormularioReserva({ habitacion, onCerrar, onReservaConfirmada }: FormularioReservaProps) {
     const [nombreHuesped, setNombreHuesped] = useState<string>("")
     const [fechaCheckIn, setFechaCheckIn] = useState<string>("")
     const [fechaCheckOut, setFechaCheckOut] = useState<string>("")
@@ -44,6 +45,16 @@ function FormularioReserva({ habitacion, onCerrar }: FormularioReservaProps) {
 
         setError(null)
         setReservaExitosa(true)
+        const nuevaReserva: Reserva = {
+            id: Date.now(),
+            habitacionId: habitacion.id,
+            nombreHuesped,
+            fechaCheckIn,
+            fechaCheckOut,
+            cantidadHuespedes,
+            precioTotal
+        }
+        onReservaConfirmada(nuevaReserva)
     }
 
     if (reservaExitosa) {

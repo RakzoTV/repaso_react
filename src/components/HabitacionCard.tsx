@@ -1,12 +1,12 @@
+import { Link } from "react-router-dom"
 import type { Habitacion } from "../types/types"
 
 
 interface HabitacionCardProps {
     habitacion: Habitacion
-    onSeleccionar: (habitacion: Habitacion) => void
 }
 
-function HabitacionCard({ habitacion, onSeleccionar }: HabitacionCardProps) {
+function HabitacionCard({ habitacion}: HabitacionCardProps) {
     return (
         <div className="w-80 overflow-hidden rounded-xl bg-white shadow-md transition hover:shadow-xl">
             <img
@@ -32,12 +32,12 @@ function HabitacionCard({ habitacion, onSeleccionar }: HabitacionCardProps) {
                     </span>
                 </div>
             </div>
-            <button
-                onClick={() => onSeleccionar(habitacion)}
-                className="w-full bg-sky-600 py-2 text-sm font-semibold text-white transition hover:bg-sky-700"
+            <Link
+                to={`/habitacion/${habitacion.id}`}
+                className="block w-full bg-sky-600 py-2 text-center text-sm font-semibold text-white transition hover:bg-sky-700"
             >
                 Reservar
-            </button>
+            </Link>
         </div>
     )
 }
